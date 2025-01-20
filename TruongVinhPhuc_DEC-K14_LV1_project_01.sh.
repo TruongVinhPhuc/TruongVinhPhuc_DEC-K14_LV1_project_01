@@ -62,14 +62,14 @@ function binary_search(array, value, low, high) {
     }
     return low;
 }
-NR==1{print;next;}
+NR==1{print;n++;next;}
 {
     data[NR] = $0;
     dates[NR] = $16;
-    n++
+    n++;
 }
 END {
-    for (i = 2; i <= n; i++) {
+    for (i = 1; i <= n; i++) {
         current_date = dates[i];
         current_data = data[i];
         pos = binary_search(dates, current_date, 1, i - 1);
@@ -81,8 +81,8 @@ END {
         dates[pos] = current_date;
         data[pos] = current_data;
     }
-    for (i = 2; i <= n; i++) {
-        print data[n - i + 2];
+    for (i = 1; i <= n; i++) {
+        print data[n - i + 1];
     }
 }' $cleaned_format_file > /home/phuc/Desktop/sorted_date.csv
 #2. Lọc ra các bộ phim có đánh giá trung bình trên 7.5 rồi lưu ra một file mới
@@ -192,7 +192,7 @@ awk -v FPAT='[^,]*|("([^"]|"")*")' -v OFS=',' '
 NR==1{next;}
 {
     split($14, movie_genres, "|");
-    for (i in movie_genres) {vị
+    for (i in movie_genres) {
     	genres[movie_genres[i]]++;
     }
 }
@@ -207,5 +207,3 @@ END {
 # Có thể xem thử diễn viên nào được ưa thích nhất (tìm lợi nhuận của các bộ phim mà họ tham gia và so sánh với các diễn viên khác)
 # Tương tự với diễn viên thì ta có thể xem xét tới yếu tố đạo diễn và công ty sản xuất nào hút khách nhất.
 # Nếu dữ liệu được sử dụng cho pipeline học máy dự đoán phim thì giữ các yếu tố trên cùng với cleaning và EDA phase (outliers có thể không bỏ vì dữ liệu là hợp lí, thay thế các giá trị rỗng theo data quality rule hoặc sử dụng mean/mode hoặc nằm trong khoảng tứ phân vị
-
-
